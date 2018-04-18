@@ -26,9 +26,10 @@ class LoginViewSet(viewsets.ModelViewSet):
     http_method_names = ['post',]
 
     def perform_create(self, serializer):
+        print(1)
         print(serializer)
-        email = serializer.data["email"]
-        user = User.objects.get(email=email)
-        t = Token.objects.create(user=user)
-        serializer.save()
+        print(2)
+        print(serializer.data)
+        # t = Token.objects.create(user=user)
+        # serializer.save()
         return serializer.data
