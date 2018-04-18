@@ -37,7 +37,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mainserver',
+    'rest_framework',
+    # 'paytm',
+    'channels',
+    'channels_api',
+    'rest_framework.authtoken',
 ]
+
+ASGI_APPLICATION = "mainsae.routing.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'asgi_redis.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)],
+        },
+        'ROUTING': 'mainsae.routing.channel_routing',
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +68,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mainsae.urls'
+
+REST_FRAMEWORK = {
+  'DEFAULT_AUTHENTICATION_CLASSES': (
+      'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 TEMPLATES = [
     {
@@ -118,3 +142,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# https://github.com/harishbisht/paytm
+PAYTM_MERCHANT_COMPANY_NAME = "<YOUR-COMPANY-NAME>"
+PAYTM_CHANNEL_ID = "WEB"
+PAYTM_EMAIL  = "<YOUR-EMAIL-ID>"
+PAYTM_MOBILE = "<YOUR-MOBILE-NUMBER>"
+PAYTM_STAGING = True
+if PAYTM_STAGING:
+    PAYTM_MERCHANT_KEY = "bKMfNxPPf_QdZppa"
+    PAYTM_INDUSTRY_TYPE_ID = "Retail"
+    PAYTM_MERCHANT_ID = "DIY12386817555501617"
+    PAYTM_CALLBACK_URL = "http://localhost:8000/wallet/response/" if DEBUG else "http://www.yourwebsite.com/wallet/response/"
+    PAYTM_WEBSITE = "DIYtestingweb"
+    PAYTM_TRANSACTION_STATUS_URL = "https://pguat.paytm.com/oltp/HANDLER_INTERNAL/TXNSTATUS"
+    PAYTM_PAYMENT_GATEWAY_URL = "https://pguat.paytm.com/oltp-web/processTransaction"
+else:
+    PAYTM_MERCHANT_KEY = "<YOUR-LIVE-MERCHANT-KEY>"
+    PAYTM_MERCHANT_ID = "<YOUR-LIVE-MERCHANT-ID>"
+    PAYTM_CALLBACK_URL = "<YOUR-LIVE-CALLBACK-URL>"
+    PAYTM_INDUSTRY_TYPE_ID = "Retail92"
+    PAYTM_WEBSITE = "<PAYTM-WEBSITE-ID>"
+    PAYTM_TRANSACTION_STATUS_URL = "https://secure.paytm.in/oltp/HANDLER_INTERNAL/TXNSTATUS"
+    PAYTM_PAYMENT_GATEWAY_URL = "https://secure.paytm.in/oltp-web/processTransaction"
+
