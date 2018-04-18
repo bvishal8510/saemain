@@ -3,6 +3,7 @@ from django.template.response import TemplateResponse
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.authentication import TokenAuthentication
 from .models import User_main
+from django.contrib.auth.models import User
 from .serializers import UserSerializer
 # from paytm.payments import PaytmPaymentPage
 # from paytm import Checksum
@@ -29,7 +30,13 @@ class LoginViewSet(viewsets.ModelViewSet):
         print(1)
         print(serializer)
         print(2)
+        # print(serializer.data)
+        user = User.objects.create(username = serializer.data['name'], email = serializer.data['email'], password = serializer.data['password'])
+        print(user)
+        t = Token.objects.create(user = user)
+        print(str(t))
+        serializer.save(Token = t)
+        # serializer.data["Token"]=str(t)
         print(serializer.data)
-        # t = Token.objects.create(user=user)
         # serializer.save()
         return serializer.data

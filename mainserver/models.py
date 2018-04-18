@@ -19,6 +19,5 @@ class Payment_main(models.Model):
     order_id = models.CharField(max_length=200, blank = False)
     date = models.DateField(auto_now_add=True)
 
-# class Meter_details(models.Model):
-#     meter_no = models.IntegerField(blank=False)
-#     elec_remain = models.IntegerField(blank=False, default = 0)
+class Rate(models.Model):
+    rate = models.IntegerField()
