@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
-        # model = User_main
-        model = User
-        fields = ('name', 'email','password')
+        model = User_main
+        # model = User
+        fields = ('username', 'email', 'password', 'address', 'meter_no')
 
 
 # class PaymentSerializer(serializers.Serializer):

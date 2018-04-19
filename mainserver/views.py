@@ -20,17 +20,17 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 
 
-class LoginViewSet(viewsets.ModelViewSet):
-    
-    queryset = User.objects.all()
-    # serializer_class = UserSerializer
-    http_method_names = ['post',]
+class LoginViewSet(APIView):
 
-    # def perform_create(self, serializer):
-    #     user = User_main.objects.get(name = serializer.data['name'], email = serializer.data['email'], password = serializer.data['password'])
-    #     # print(serializer.data)
-    #     print(user)
-    #     # user = User.objects.create(username = serializer.data['name'], email = serializer.data['email'], password = serializer.data['password'])
-    #     # t = Token.objects.create(user = user)
-    #     # serializer.save()
-    #     return user
+    def get(self, request):
+        print(request)
+        print(list(request))
+        # user = User_main.objects.get(username = serializer.data['username'], email = serializer.data['email'], password = serializer.data['password'])
+        print(1)
+        # print(serializer.data)
+        print(2)
+        # print(user)
+        # t = Token.objects.create(user = user)
+        # print(t)
+        # return user
+        # return serializer.data
