@@ -1,11 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class User_main(models.Model):
     name = models.CharField(max_length=100, blank=True, default='')
     email = models.EmailField(max_length=70,blank=False)
     password = models.CharField(max_length=250)
-    Token = models.CharField(max_length=200)
     meter_no = models.IntegerField(blank = False)
 
 class Meter_main(models.Model):
