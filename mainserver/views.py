@@ -20,17 +20,32 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 
 
-class LoginViewSet(APIView):
+class LoginViewSet(viewsets.ViewSet):
 
-    def get(self, request):
-        print(request)
-        print(list(request))
-        # user = User_main.objects.get(username = serializer.data['username'], email = serializer.data['email'], password = serializer.data['password'])
-        print(1)
-        # print(serializer.data)
-        print(2)
-        # print(user)
-        # t = Token.objects.create(user = user)
-        # print(t)
-        # return user
-        # return serializer.data
+    def list(self, request):
+        try:
+            user = User.objects.get(email= request.GET['email'], username = request.GET['username'],
+             password = request.GET['password'] )
+        except User.DoesNotExist:
+            user = None
+        if user:
+            t = Token.objects.create(user = user)
+        else:
+            t = 0
+        d1 = {}
+        d1['token'] = str(t)
+        return Response(d1)
+
+    # def post(self, serializer):
+    #     print(serializer)
+    #     # print(list(request))
+    #     # user = User_main.objects.get(username = serializer.data['username'], email = serializer.data['email'], password = serializer.data['password'])
+    #     print(1)
+    #     # print(serializer.data)
+    #     # print(2)
+    #     # print(user)
+    #     # t = Token.objects.create(user = user)
+    #     # print(t)
+    #     # return user
+    #     # return serializer.data
+    #     return HttpResponse("dfgsdgf")
