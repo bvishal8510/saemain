@@ -23,18 +23,32 @@ from rest_framework.authentication import TokenAuthentication
 class LoginViewSet(viewsets.ViewSet):
 
     def list(self, request):
+        d1 = {}
         try:
             user = User.objects.get(email= request.GET['email'], username = request.GET['username'],
              password = request.GET['password'] )
         except User.DoesNotExist:
             user = None
         if user:
+            d1['user'] = 1
             t = Token.objects.create(user = user)
         else:
             t = 0
-        d1 = {}
+            d1['user'] = 0
         d1['token'] = str(t)
         return Response(d1)
+
+class Get_Bal(APIView):
+    
+    def get(self, request, format=None):
+        d = {}
+        print(request.GET)
+        print(dict(request.GET)['email'][0])
+        user = User_main.objects.get(email = dict(request.GET)['email'][0])
+        print(user.energy_bal)
+        d['balance'] = user.energy_bal
+        return Response(d)
+        
 
     # def post(self, serializer):
     #     print(serializer)

@@ -11,11 +11,13 @@ from django.contrib.auth.models import User
 class User_main(User):
     address  = models.CharField(max_length = 500, blank = False)
     meter_no = models.IntegerField(blank = False)
-
-class Meter_main(models.Model):
-    name = models.ForeignKey(User_main, on_delete=models.CASCADE)
     on_off = models.BooleanField(default = False)
-    energy_bal = models.FloatField(blank=False)
+    energy_bal = models.FloatField(blank=False, default = 0)
+
+# class Meter_main(models.Model):
+#     name = models.ForeignKey(User_main, on_delete=models.CASCADE)
+#     on_off = models.BooleanField(default = False)
+#     energy_bal = models.FloatField(blank=False, default = 0)
     
 class Payment_main(models.Model):
     email = models.ForeignKey(User_main, on_delete=models.CASCADE)

@@ -25,7 +25,7 @@ SECRET_KEY = 'f+p!f5iw*60(9)!4)25kym#ac)1w@wps3dl%wjnjgh!f=2h095'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['515dc955.ngrok.io','*']
+ALLOWED_HOSTS = ['2403ae27.ngrok.io','*']
 
 
 # Application definition
@@ -40,22 +40,20 @@ INSTALLED_APPS = [
     'mainserver',
     'rest_framework',
     # 'paytm',
-    'channels',
-    'channels_api',
     'rest_framework.authtoken',
 ]
 
-ASGI_APPLICATION = "mainsae.routing.application"
+# ASGI_APPLICATION = "mainsae.routing.application"
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'asgi_redis.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [('localhost', 6379)],
-        },
-        'ROUTING': 'mainsae.routing.channel_routing',
-    }
-}
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'asgi_redis.RedisChannelLayer',
+#         'CONFIG': {
+#             'hosts': [('localhost', 6379)],
+#         },
+#         'ROUTING': 'mainsae.routing.channel_routing',
+#     }
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
