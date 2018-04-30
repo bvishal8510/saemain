@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from mainserver import views
-from mainserver.views import LoginViewSet
+from mainserver.views import LoginViewSet, Get_Bal
 from rest_framework.routers import DefaultRouter
 # from rest_framework.schemas import get_schema_view
 
