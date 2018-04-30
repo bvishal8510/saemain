@@ -8,11 +8,13 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'main_login', views.LoginViewSet, base_name='login')
+router.register(r'get_bal', views.BalViewSet, base_name='balance')
 # router.register(r'payment', views.PaymentViewSet)
 # router.register(r'response', views.ResponseViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^forget/$', views.Forget_password.as_view()),
     # url(r'^main_login/$', views.LoginViewSet.as_view()),
     # url(r'^schema/$', schema_view),
 ]

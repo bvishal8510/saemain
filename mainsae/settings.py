@@ -25,7 +25,7 @@ SECRET_KEY = 'f+p!f5iw*60(9)!4)25kym#ac)1w@wps3dl%wjnjgh!f=2h095'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['515dc955.ngrok.io','*']
+ALLOWED_HOSTS = ['aa3f45ed.ngrok.io','*']
 
 
 # Application definition
@@ -138,6 +138,15 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'phoics100@gmail.com'
+EMAIL_HOST_PASSWORD = 'pythonproject'
+EMAIL_USE_TLS = True
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -165,4 +174,7 @@ else:
     PAYTM_WEBSITE = "<PAYTM-WEBSITE-ID>"
     PAYTM_TRANSACTION_STATUS_URL = "https://secure.paytm.in/oltp/HANDLER_INTERNAL/TXNSTATUS"
     PAYTM_PAYMENT_GATEWAY_URL = "https://secure.paytm.in/oltp-web/processTransaction"
+
+
+
 

@@ -36,6 +36,33 @@ class LoginViewSet(viewsets.ViewSet):
         d1['token'] = str(t)
         return Response(d1)
 
+class BalViewSet(viewsets.ViewSet):
+
+    def list(self, request):
+        print(request.GET['user'])
+        print(request.GET['user'].username)
+        try:
+            user = User.objects.get(email= request.GET['email'], username = request.GET['username'],
+             password = request.GET['password'] )
+        except User.DoesNotExist:
+            user = None
+        if user:
+            t = Token.objects.create(user = user)
+        else:
+            t = 0
+        d1 = {}
+        d1['token'] = str(t)
+        return Response(d1)
+
+class Forget_password(APIView):
+
+    def get(self, request):
+        print(request.data)
+        print(request.GET)
+        # user = User.objects.get(email = request.GET)
+        # print(user.password)
+        return HttpResponse("enail sent")
+
     # def post(self, serializer):
     #     print(serializer)
     #     # print(list(request))
