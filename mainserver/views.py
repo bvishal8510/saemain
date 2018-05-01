@@ -15,9 +15,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status, viewsets, permissions, serializers
 import json
+from mainsae.settings import EMAIL_HOST_USER
 import requests
 from rest_framework.authtoken.models import Token
-from rest_framework.authentication import TokenAuthentication
+from django.core.mail import send_mail
 
 
 class LoginViewSet(viewsets.ViewSet):
@@ -32,38 +33,45 @@ class LoginViewSet(viewsets.ViewSet):
         if user:
             d1['user'] = 1
             t = Token.objects.create(user = user)
+            # t = 1
         else:
             t = 0
             d1['user'] = 0
         d1['token'] = str(t)
         return Response(d1)
 
-class BalViewSet(viewsets.ViewSet):
+class Get_Bal(APIView):
+    
+    def get(self, request, format=None):
+        d = {}
+        user = User_main.objects.get(email = dict(request.GET)['email'][0])
+        d['balance'] = user.energy_bal
+        return Response(d)
 
-    def list(self, request):
-        print(request.GET['user'])
-        print(request.GET['user'].username)
-        try:
-            user = User.objects.get(email= request.GET['email'], username = request.GET['username'],
-             password = request.GET['password'] )
-        except User.DoesNotExist:
-            user = None
-        if user:
-            t = Token.objects.create(user = user)
-        else:
-            t = 0
-        d1 = {}
-        d1['token'] = str(t)
-        return Response(d1)
+    # def put(self, request):
+    #     user = User_main.objects.get(email = dict(request.GET)['email'][0])
 
 class Forget_password(APIView):
 
     def get(self, request):
-        print(request.data)
-        print(request.GET)
-        # user = User.objects.get(email = request.GET)
-        # print(user.password)
-        return HttpResponse("enail sent")
+        email = dict(request.GET)["email"][0]
+        user = User.objects.get(email = email)
+        d = {}
+        if user:
+            d['user'] = '1'
+            message = 'Dear customer, this is your password for the account is ' + str(user.password)
+            subject = 'Recieve Password'
+            from_mail = EMAIL_HOST_USER
+            to_mail = [email]
+            send_mail(subject,
+                            message,
+                            from_mail,
+                            to_mail,
+                            fail_silently=False
+                            )
+            return Response(d)
+        d['user'] = '0'
+        return Response(d)
 
     # def post(self, serializer):
     #     print(serializer)
