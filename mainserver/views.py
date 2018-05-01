@@ -40,6 +40,7 @@ class LoginViewSet(viewsets.ViewSet):
         d1['token'] = str(t)
         return Response(d1)
 
+
 class Get_Bal(APIView):
     
     def get(self, request, format=None):
@@ -48,8 +49,12 @@ class Get_Bal(APIView):
         d['balance'] = user.energy_bal
         return Response(d)
 
-    # def put(self, request):
-    #     user = User_main.objects.get(email = dict(request.GET)['email'][0])
+    def put(self, request):
+        print(request.data)
+        user = User_main.objects.filter(email = dict(request.data)['email'][0]).update(energy_bal = dict(request.data)['energy'][0])
+        print(user)
+        return HttpResponse("done")
+
 
 class Forget_password(APIView):
 
