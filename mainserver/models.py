@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 #     meter_no = models.IntegerField(blank = False)
 
 class User_main(User):
+    Customer_id = models.CharField(max_length = 500, blank = False, default = "hey")
     address  = models.CharField(max_length = 500, blank = False)
     meter_no = models.IntegerField(blank = False)
     on_off = models.BooleanField(default = False)

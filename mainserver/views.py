@@ -28,10 +28,13 @@ class LoginViewSet(viewsets.ViewSet):
         try:
             user = User.objects.get(email= request.GET['email'], username = request.GET['username'],
              password = request.GET['password'] )
+            user1 = User_main.objects.get(email= request.GET['email'], username = request.GET['username'],
+             password = request.GET['password'] )
         except User.DoesNotExist:
             user = None
         if user:
             d1['user'] = 1
+            d1['customer_id'] = user1.Customer_id
             t = Token.objects.create(user = user)
             # t = 1
         else:
